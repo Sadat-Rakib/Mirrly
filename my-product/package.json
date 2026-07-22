@@ -1,6 +1,6 @@
 {
   "name": "mirrly",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Mirrly — a desktop AI assistant that stays with you while you work. It can see your screen and hear what's said (with your permission), remembers what matters, and helps you understand and get things done. Windows + macOS.",
   "license": "GPL-3.0-or-later",
   "author": "Mirrly",

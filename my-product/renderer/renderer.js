@@ -875,52 +875,53 @@
   const OB_STEPS = [
     {
       iconHtml: icon('hand', { size: 40 }),
-      title: 'Welcome to Mirrly',
-      body: 'Mirrly is an AI assistant that stays with you while you work. With your permission it can <strong>see what\'s on your screen</strong> and <strong>hear what\'s being said</strong>, so it can explain things, answer questions, and help you get things done in context.<br><br>This quick guide takes about a minute.'
+      title: 'What is Mirrly?',
+      body: 'Mirrly is a small AI helper that sits on your desktop while you work.<br><br>It stays on top of your other apps so you can ask for help without switching windows.'
+    },
+    {
+      iconHtml: icon('lightbulb', { size: 40 }),
+      title: 'How it works',
+      body: 'You bring your own AI key in Settings — or try <span class="hl">Pollinations</span> with no key.<br><br>When you ask, Mirrly can look at your screen. If you allow the mic, it can listen too.<br><br>Your keys and memory stay on your computer.'
+    },
+    {
+      iconHtml: icon('list-checks', { size: 40 }),
+      title: 'What it can do',
+      body: '<ul>' +
+        '<li>Help with what’s on your screen</li>' +
+        '<li>Open apps and websites for you</li>' +
+        '<li>Draft emails (you still click Send)</li>' +
+        '<li>Look things up on the real web</li>' +
+        '<li>Talk with you in voice mode</li>' +
+        '<li>Remember facts you ask it to keep</li>' +
+        '<li>Turn into a cat, dog, fox, or bunny</li></ul>'
     },
     IS_MAC ? {
       iconHtml: icon('shield', { size: 40 }),
-      title: 'Let Mirrly see & hear',
-      body: 'Mirrly needs two macOS permissions. Click each button, turn <strong>Mirrly</strong> ON in the window that opens, then come back here.<ul><li><strong>Microphone</strong> to hear you</li><li><strong>Screen Recording</strong> to see your screen and hear call audio</li></ul>',
+      title: 'A couple of permissions',
+      body: 'On a Mac, turn these on for Mirrly:<ul><li><strong>Microphone</strong> — so it can hear you</li><li><strong>Screen Recording</strong> — so it can see your screen</li></ul>Use the buttons below, flip Mirrly ON, then come back.',
       buttons: [
         { label: 'Open Microphone settings', action: () => mirrly.openPane('x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone') },
         { label: 'Open Screen Recording settings', action: () => mirrly.openPane('x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture') }
       ]
     } : {
       iconHtml: icon('shield', { size: 40 }),
-      title: 'Let Mirrly see & hear',
-      body: 'On Windows, Mirrly can view your screen right away. For listening, Windows asks for <strong>microphone access</strong> the first time Mirrly listens; click <strong>Allow</strong> when prompted. If the mic stays silent, check that microphone access is enabled for desktop apps in Windows privacy settings.',
+      title: 'A couple of permissions',
+      body: 'On Windows, screen help works right away.<br><br>The first time you listen or use voice mode, Windows will ask for the <strong>microphone</strong> — click <strong>Allow</strong>.',
       buttons: [
-        { label: 'Open Microphone privacy settings', action: () => mirrly.openPane('ms-settings:privacy-microphone') }
+        { label: 'Open Microphone settings', action: () => mirrly.openPane('ms-settings:privacy-microphone') }
       ]
     },
     {
-      iconHtml: icon('key', { size: 40 }),
-      title: 'Connect an AI provider',
-      body: 'Mirrly uses <strong>your own</strong> API key. Pick <span class="hl">OpenAI</span>, <span class="hl">Anthropic</span>, <span class="hl">Gemini</span>, <span class="hl">Groq</span>, <span class="hl">OpenRouter</span>, or <span class="hl">Custom</span> with any OpenAI-compatible base URL. <span class="hl">Pollinations</span> needs no key at all and works out of the box.<br><br><strong>Tip:</strong> listening/transcription needs a Groq or Gemini key. A chat-only key still powers everything on screen.',
-      buttons: [{ label: 'Open Mirrly Settings', action: () => { finishOnboard(); openSettings(); } }]
-    },
-    {
-      iconHtml: icon('list-checks', { size: 40 }),
-      title: 'What Mirrly can do',
-      body: '<ul>' +
-        '<li><strong>Assist</strong> answers whatever the moment needs, from your screen and the conversation</li>' +
-        '<li><strong>Explain</strong> breaks down anything you\'re looking at in plain language</li>' +
-        '<li><strong>Write</strong> and <strong>Translate</strong> help with drafts, replies, and other languages</li>' +
-        '<li><strong>Listen</strong> transcribes you and your calls live, then turns them into meeting notes</li>' +
-        '<li><strong>Remember</strong> keeps facts about you and your work, locally, so Mirrly understands your stuff over time</li>' +
-        '<li><strong>Smart mode</strong> switches to a stronger model for harder questions</li></ul>'
-    },
-    {
       iconHtml: icon('rocket', { size: 40 }),
-      title: 'You\'re all set',
-      body: 'How to use Mirrly:<ul>' +
-        '<li>' + kbd(MOD) + ' ' + kbd('↵') + ' <strong>Assist</strong> with whatever\'s on screen or being said</li>' +
-        '<li>' + kbd(MOD) + ' ' + kbd('E') + ' <strong>Explain</strong> what\'s on screen</li>' +
-        '<li>' + kbd(MOD) + ' ' + kbd('H') + ' solve a coding problem on screen</li>' +
-        '<li>Click the <strong>mic</strong> in the top bar to start listening to you and your calls</li>' +
-        '<li>Type a question and press ' + kbd('↵') + ', or click the <strong>mic in the composer</strong> to dictate one</li></ul>' +
-        'Works the same on Windows and macOS. Reopen this guide anytime by clicking the <strong>Mirrly logo</strong>. Quit with ' + kbd(MOD) + kbd(IS_MAC ? '⇧' : 'Shift') + kbd('X') + '.'
+      title: 'You’re ready',
+      body: '<ul>' +
+        '<li>' + kbd(MOD) + ' ' + kbd('↵') + ' — help with what’s on screen</li>' +
+        '<li>Type a question and press ' + kbd('↵') + '</li>' +
+        '<li>Top-bar mic — listen on a call</li>' +
+        '<li>Waveform button — voice mode</li>' +
+        '<li>Click the <strong>Mirrly logo</strong> anytime to see this guide again</li></ul>' +
+        'Add an API key in Settings when you’re ready. Quit with ' + kbd(MOD) + ' ' + kbd(IS_MAC ? '⇧' : 'Shift') + ' ' + kbd('X') + '.',
+      buttons: [{ label: 'Open Settings', action: () => { finishOnboard(); openSettings(); } }]
     }
   ];
   let obIndex = 0;
