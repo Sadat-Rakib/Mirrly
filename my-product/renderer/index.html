@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;" />
+  <title>Mirrly</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Mascot (Appearance setting; replaces the toolbar when enabled) -->
+    <div id="mascot" class="hidden" role="button" aria-label="Mirrly mascot — click to open chat" data-character="cat"></div>
+
+    <!-- Top-center floating pill toolbar (drag handle) -->
+    <div id="toolbar">
+      <button class="tb-logo" id="logo-btn" title="Mirrly"></button>
+      <div class="tb-divider"></div>
+      <button class="tb-hide" id="hide-btn"><span class="chev"></span><span>Hide</span></button>
+      <div class="tb-divider"></div>
+      <button class="tb-icon" id="new-chat-btn" title="New chat"></button>
+      <button class="tb-stop" id="stop-btn" title="Listen — transcribe you and your calls (click to start / stop)" aria-label="Start or stop listening"></button>
+      <button class="tb-icon" id="voice-btn" title="Voice mode — continuous talk" aria-label="Toggle voice conversation mode"></button>
+    </div>
+
+    <!-- Main assistant panel -->
+    <div id="panel-wrap">
+      <span id="live-dot" class="off"></span>
+      <div id="panel" class="glass no-drag">
+        <div id="messages"></div>
+
+        <div id="action-row">
+          <button class="act" data-mode="assist"><span class="ic"></span><span>Assist</span></button>
+          <button class="act" data-mode="explain"><span class="ic"></span><span>Explain</span></button>
+          <button class="act" data-mode="write"><span class="ic"></span><span>Write</span></button>
+          <button class="act" data-mode="translate"><span class="ic"></span><span>Translate</span></button>
+          <button class="act" data-mode="say"><span class="ic"></span><span>What should I say?</span></button>
+          <button class="act" data-mode="recap"><span class="ic"></span><span>Notes</span></button>
+          <button class="act" id="remember-btn"><span class="ic"></span><span>Remember</span></button>
+        </div>
+
+        <div id="composer">
+          <div id="input-area">
+            <div id="placeholder">Ask about your screen or conversation, or <span class="keycap" id="kc-mod">⌘</span><span class="keycap">⏎</span> for Assist</div>
+            <textarea id="input" rows="1" spellcheck="false"></textarea>
+          </div>
+          <div id="composer-bottom">
+            <button id="smart-toggle" class="smart-pill"><span class="ic"></span><span>Smart</span></button>
+            <button id="more-btn" class="more-btn" title="Settings"></button>
+            <div class="spacer"></div>
+            <button id="dictate-btn" class="more-btn" title="Dictate your question" aria-label="Dictate your question"></button>
+            <button id="send-btn" title="Send"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div id="settings-scrim" class="hidden">
+    <div id="settings" class="glass">
+      <div class="s-head">
+        <div class="s-title">Settings</div>
+        <button id="s-close" class="s-close">Done</button>
+      </div>
+      <div class="s-body">
+        <label class="s-label">Provider</label>
+        <div class="s-seg" id="provider-seg"></div>
+
+        <label class="s-label">API keys <span class="s-hint">stored locally on this device</span></label>
+        <div id="key-fields"></div>
+
+        <div id="custom-base-wrap" class="hidden">
+          <label class="s-label">Custom base URL <span class="s-hint">OpenAI-compatible endpoint</span></label>
+          <div class="s-field"><span>Base URL</span><input id="custom-base-url" type="url" autocomplete="off" placeholder="https://api.example.com/v1" /></div>
+        </div>
+
+        <label class="s-label">Models <span class="s-hint">fast = Smart off · smart = Smart on</span></label>
+        <div class="s-field"><span>Fast</span><input id="model-fast" type="text" autocomplete="off" /></div>
+        <div class="s-field"><span>Smart</span><input id="model-smart" type="text" autocomplete="off" /></div>
+        <div id="vision-hint" class="hidden"></div>
+
+        <label class="s-label">Assistant</label>
+        <label class="s-toggle"><input type="checkbox" id="opt-tts" /><span class="s-switch"></span><span>Speak answers aloud</span></label>
+        <label class="s-toggle"><input type="checkbox" id="opt-clip" /><span class="s-switch"></span><span>Use clipboard as extra context</span></label>
+
+        <label class="s-label">Appearance</label>
+        <label class="s-toggle"><input type="checkbox" id="opt-mascot" /><span class="s-switch"></span><span>Mascot mode — a companion replaces the pill; click it to chat</span></label>
+        <label class="s-toggle"><input type="checkbox" id="opt-roam" /><span class="s-switch"></span><span>Mascot roams the screen</span></label>
+        <label class="s-label">Mascot <span class="s-hint">Cat · Dog · Fox · Bunny</span></label>
+        <div id="mascot-pick" class="mascot-pick" role="group" aria-label="Choose mascot"></div>
+
+        <label class="s-label">Skills <span class="s-hint">teach Mirrly how you like things done</span></label>
+        <div id="skills-list" class="skills-list"></div>
+        <div class="skills-actions">
+          <button type="button" id="skills-open-folder" class="s-link-btn">Open skills folder</button>
+          <button type="button" id="skills-save-last" class="s-link-btn">Save last instruction as skill</button>
+        </div>
+
+        <label class="s-label">Memory <span class="s-hint">facts Mirrly keeps locally · add via the Remember button</span></label>
+        <div id="memory-list"></div>
+
+        <div class="s-status" id="s-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- First-run tutorial / walkthrough -->
+  <div id="onboard-scrim" class="hidden">
+    <div id="onboard" class="glass">
+      <div class="ob-icon" id="ob-icon"></div>
+      <div class="ob-title" id="ob-title"></div>
+      <div class="ob-body" id="ob-body"></div>
+      <div class="ob-buttons" id="ob-buttons"></div>
+      <div class="ob-actions">
+        <button id="ob-skip" class="ob-ghost">Skip</button>
+        <div class="spacer"></div>
+        <button id="ob-back" class="ob-ghost">Back</button>
+        <button id="ob-next" class="ob-primary">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="icons.js"></script>
+  <script src="mascot.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

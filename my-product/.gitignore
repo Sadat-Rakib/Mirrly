@@ -1,0 +1,13 @@
+node_modules/
+dist/
+out/
+native/systemaudio
+*.log
+.DS_Store
+cue-data.json
+
+# Local agent / IDE tooling — do not publish
+.claude/
+CLAUDE.md
+.cursor/
+*.canvas.tsx

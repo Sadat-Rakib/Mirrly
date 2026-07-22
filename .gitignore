@@ -1,0 +1,24 @@
+# Local agent / IDE tooling — do not publish
+.claude/
+.qodo/
+CLAUDE.md
+.cursor/
+*.canvas.tsx
+
+# Dependencies & builds
+node_modules/
+**/node_modules/
+website/dist/
+my-product/dist/
+my-product/out/
+**/tsconfig.tsbuildinfo
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log

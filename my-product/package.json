@@ -1,0 +1,77 @@
+{
+  "name": "mirrly",
+  "version": "0.2.0",
+  "description": "Mirrly — a desktop AI assistant that stays with you while you work. It can see your screen and hear what's said (with your permission), remembers what matters, and helps you understand and get things done. Windows + macOS.",
+  "license": "GPL-3.0-or-later",
+  "author": "Mirrly",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac zip"
+  },
+  "build": {
+    "appId": "com.mirrly.app",
+    "productName": "Mirrly",
+    "asar": false,
+    "icon": "build/icon.png",
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "renderer/**/*",
+      "skills/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": true,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "Mirrly-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "Mirrly-Portable.${ext}"
+    },
+    "mac": {
+      "target": [
+        "dir"
+      ],
+      "icon": "build/icon.png",
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null,
+      "extendInfo": {
+        "LSUIElement": true,
+        "NSMicrophoneUsageDescription": "Mirrly transcribes your microphone so it can help you in conversations.",
+        "NSCameraUsageDescription": "Mirrly does not use the camera.",
+        "NSAudioCaptureUsageDescription": "Mirrly captures system audio to transcribe the other participant in a call."
+      }
+    }
+  },
+  "keywords": [
+    "electron",
+    "overlay",
+    "ai",
+    "assistant",
+    "copilot",
+    "windows",
+    "macos"
+  ],
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "@google/genai": "^0.3.0",
+    "lucide-static": "^0.468.0",
+    "openai": "^4.73.0"
+  }
+}
